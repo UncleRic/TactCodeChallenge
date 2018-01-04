@@ -1,0 +1,50 @@
+Create an app that has a single screen. At the top are 2 buttons and a text field. 
+Below them is a scrollable area with N number of boxes that have a number inside.
+The first box has the number 1, the second 2 etc.
+
+Tapping the first button makes the boxes layout as so:
+ ————————— ————————— ————————— ————————— 
+|         |         |         |         |
+|         |         |         |         |
+|    1    |    2    |    3    |    4    |
+|         |         |         |         |
+|         |         |         |         |
+ ————————— ————————— ————————— ————————— 
+|         |         |         |         |
+|         |         |         |         |
+|    8    |    7    |    6    |    5    |
+|         |         |         |         |
+|         |         |         |         |
+ ————————— ————————— ————————— ————————— 
+|         |         |         |         |
+|         |         |         |         |
+|    9    |    10   |    11   |    12   |
+|         |         |         |         |
+|         |         |         |         |
+ ————————— ————————— ————————— ————————— 
+
+etc. (notice that the next box is always touching the previous box, whether horizontally or vertically)
+
+
+Tapping the second button makes the boxes layout with this layout:
+
+ — —— ——— ———— ————— —————— ——————— 
+| |  |   |    |     |      |       |
+| |  |   |    |     |      |       |
+|1|2 | 3 |  4 |  5  |   6  |   7   |
+| |  |   |    |     |      |       |
+| |  |   |    |     |      |       |
+ — —— ——— ———— ————— —————— ——————— 
+|        |         |          |
+|        |         |          |
+|    8   |    9    |     10   |
+|        |         |          |
+|        |         |          |
+ ———————— ————————— —————————— 
+
+etc. (Notice the second box is twice the width of the first, and the third is 3 times the width)
+
+The text field contains the number of boxes that are in the scrollable area. Editing this text field changes how many boxes there are.
+Tapping anywhere outside the textfield should hide the keyboard.
+
+On launch, the boxes should be laid out out as if the first button had been pressed, and the text field should indicate 10 boxes

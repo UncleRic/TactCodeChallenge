@@ -7,22 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		181CB54D1FFECEED006DF4DA /* Layout Task.txt in Resources */ = {isa = PBXBuildFile; fileRef = 181CB54C1FFECEED006DF4DA /* Layout Task.txt */; };
 		18D73DF41FFEC11F00C5BCF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D73DF31FFEC11F00C5BCF3 /* AppDelegate.swift */; };
 		18D73DF91FFEC11F00C5BCF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18D73DF71FFEC11F00C5BCF3 /* Main.storyboard */; };
 		18D73DFB1FFEC11F00C5BCF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D73DFA1FFEC11F00C5BCF3 /* Assets.xcassets */; };
 		18D73DFE1FFEC11F00C5BCF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18D73DFC1FFEC11F00C5BCF3 /* LaunchScreen.storyboard */; };
-		18D73E061FFEC2D300C5BCF3 /* Layout Task.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 18D73E051FFEC2D200C5BCF3 /* Layout Task.rtf */; };
 		18D73E0A1FFEC3FD00C5BCF3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D73E091FFEC3FD00C5BCF3 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		181CB54C1FFECEED006DF4DA /* Layout Task.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Layout Task.txt"; sourceTree = "<group>"; };
 		18D73DF01FFEC11F00C5BCF3 /* TactCollection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TactCollection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18D73DF31FFEC11F00C5BCF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18D73DF81FFEC11F00C5BCF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		18D73DFA1FFEC11F00C5BCF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18D73DFD1FFEC11F00C5BCF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18D73DFF1FFEC11F00C5BCF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		18D73E051FFEC2D200C5BCF3 /* Layout Task.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = "Layout Task.rtf"; path = "../../Desktop/Layout Task.rtf"; sourceTree = "<group>"; };
 		18D73E091FFEC3FD00C5BCF3 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -40,7 +40,7 @@
 		18D73DE71FFEC11F00C5BCF3 = {
 			isa = PBXGroup;
 			children = (
-				18D73E051FFEC2D200C5BCF3 /* Layout Task.rtf */,
+				181CB54C1FFECEED006DF4DA /* Layout Task.txt */,
 				18D73DF21FFEC11F00C5BCF3 /* TactCollection */,
 				18D73DF11FFEC11F00C5BCF3 /* Products */,
 			);
@@ -126,9 +126,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				181CB54D1FFECEED006DF4DA /* Layout Task.txt in Resources */,
 				18D73DFE1FFEC11F00C5BCF3 /* LaunchScreen.storyboard in Resources */,
 				18D73DFB1FFEC11F00C5BCF3 /* Assets.xcassets in Resources */,
-				18D73E061FFEC2D300C5BCF3 /* Layout Task.rtf in Resources */,
 				18D73DF91FFEC11F00C5BCF3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

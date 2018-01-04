@@ -19,6 +19,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="16K-Dd-cvE">
+                                <rect key="frame" x="27.5" y="60" width="320" height="30"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="MIJ-yU-cP7">
+                                        <rect key="frame" x="0.0" y="0.0" width="250" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="PCV-Je-KJP"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="Ufw-YN-gVF"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="Initial Collection"/>
+                                            <segment title="Morphed"/>
+                                        </segments>
+                                    </segmentedControl>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="0" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Plk-6p-iMN">
+                                        <rect key="frame" x="270" y="0.0" width="50" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="1ZT-J3-w8s"/>
+                                            <constraint firstAttribute="height" constant="30" id="dHs-Uo-mWU"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="03R-jy-oWO">
                                 <rect key="frame" x="38" y="129" width="299" height="429"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -73,7 +99,9 @@
                         <color key="backgroundColor" red="0.77363037999999995" green="1" blue="0.94208932970000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="03R-jy-oWO" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="1vg-CB-DsI"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="16K-Dd-cvE" secondAttribute="bottom" constant="-70" id="2He-Fa-vYI"/>
                             <constraint firstItem="ug4-UL-kHK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="1" id="4Vi-rb-ei5"/>
+                            <constraint firstItem="16K-Dd-cvE" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="9Z1-vp-fIG"/>
                             <constraint firstItem="03R-jy-oWO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="109" id="AuN-G2-Q2F"/>
                             <constraint firstItem="03R-jy-oWO" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="CZi-Gz-qZh"/>
                             <constraint firstItem="03R-jy-oWO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="38" id="ELF-RN-fD3"/>
