@@ -14,6 +14,8 @@ class TactCell: UICollectionViewCell {
     var textVield:UITextField?
 }
 
+// ===================================================================================================
+
 class TactLayout: UICollectionViewLayout {
     
     override var collectionViewContentSize: CGSize {
@@ -26,24 +28,51 @@ class TactLayout: UICollectionViewLayout {
     
 }
 
+// ===================================================================================================
+
 class MainViewController: UIViewController {
     
-    required init?(coder aDecoder: NSCoder) {
-       super.init(coder: aDecoder)
-    }
+    @IBOutlet weak var numberInputField: UITextField!
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     var myLayout: UICollectionViewLayout?
     var tactLayout:TactLayout = TactLayout()
     
-    var numberOfMemberCellsOfSection = 20
+    var numberOfMemberCellsOfSection = 0
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    // MARK: - Initialization:
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         myLayout =  UICollectionViewLayout()
     }
 
     // -----------------------------------------------------------------------------------------------------
+    // MARK: - Local
+    
+    func standardLayout() {
+        print("Standard Layout: \(numberOfMemberCellsOfSection)")
+        collectionView.reloadData()
+    }
+    
+    func morphedLayout() {
+        
+    }
+    // -----------------------------------------------------------------------------------------------------
+    // MARK: - Action:
+    
+   
+    @IBAction func resetAction(_ sender: UIBarButtonItem) {
+        standardLayout()
+    }
+    
+    @IBAction func morphedAction(_ sender: UIBarButtonItem) {
+        morphedLayout()
+    }
     
     
     @IBAction func exitAction(_ sender: UIBarButtonItem) {
@@ -53,10 +82,24 @@ class MainViewController: UIViewController {
 
 // ===================================================================================================
 
+
+extension MainViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let numberOfCells = Int(numberInputField.text!) else {
+            return false
+        }
+        numberOfMemberCellsOfSection = numberOfCells
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
+// ===================================================================================================
+
 extension MainViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection numberOfSections: Int) -> Int {
-        return numberOfMemberCellsOfSection
+        return 1 //numberOfMemberCellsOfSection
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
