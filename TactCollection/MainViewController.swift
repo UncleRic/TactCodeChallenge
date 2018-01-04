@@ -67,6 +67,8 @@ class MainViewController: UIViewController {
     
    
     @IBAction func resetAction(_ sender: UIBarButtonItem) {
+        numberOfMemberCellsOfSection = 0
+        numberInputField.text = ""
         standardLayout()
     }
     
