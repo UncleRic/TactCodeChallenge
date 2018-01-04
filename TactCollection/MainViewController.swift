@@ -90,6 +90,7 @@ extension MainViewController: UITextFieldDelegate {
         }
         numberOfMemberCellsOfSection = numberOfCells
         textField.resignFirstResponder()
+        standardLayout()
         return true
     }
 }
@@ -99,7 +100,7 @@ extension MainViewController: UITextFieldDelegate {
 extension MainViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection numberOfSections: Int) -> Int {
-        return 1 //numberOfMemberCellsOfSection
+        return  numberOfMemberCellsOfSection
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
