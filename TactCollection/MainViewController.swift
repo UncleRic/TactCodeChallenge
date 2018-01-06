@@ -22,10 +22,15 @@ class MainViewController: UIViewController {
     @IBOutlet weak var numberInputField: UITextField!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var tactLayout:TactLayout = TactLayout()
-    
     var numberOfMemberCellsOfSection = 0
     
+    let columnLayout = ColumnFlowLayout(
+        cellsPerRow: 5,
+        minimumInteritemSpacing: 10,
+        minimumLineSpacing: 10,
+        sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    )
+
     // MARK: - Initialization:
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -34,9 +39,9 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         numberInputField.delegate = self
-     //   collectionView.collectionViewLayout = TactLayout()
-        collectionView.collectionViewLayout = UICollectionViewFlowLayout()
+        collectionView?.collectionViewLayout = columnLayout
     }
+    
     
     // -----------------------------------------------------------------------------------------------------
     // MARK: - Local
@@ -85,34 +90,13 @@ extension MainViewController: UITextFieldDelegate {
 
 // ===================================================================================================
 
-extension MainViewController: UICollectionViewDelegateFlowLayout {
-    // If you do not implement this method, the flow layout uses the values in its itemSize property to set the size of items instead.
-    // Your implementation of this method can return a fixed set of sizes or dynamically adjust the sizes based on the cell’s content.
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: floor((collectionView.bounds.width - 2) / 3), height: 90)
-//    }
-    
-    // -----------------------------------------------------------------------------------------------------
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        let cellsPerRow: CGFloat = 4
-//        let widthRemainder = (collectionView.bounds.width -
-//            (cellsPerRow-1)).truncatingRemainder(dividingBy: cellsPerRow) / (cellsPerRow-1)
-//        return 1 + widthRemainder
-//    }
-//    
-}
-
-
-// ===================================================================================================
-
 extension MainViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection numberOfSections: Int) -> Int {
         return  numberOfMemberCellsOfSection
     }
     
-    // **** Populating the cell:
+    // **** Populating the cell ****:
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: cellQueueID, for: indexPath)
         if let textField = cell.contentView.viewWithTag(1) as? UITextField {
