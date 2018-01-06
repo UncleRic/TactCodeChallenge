@@ -34,9 +34,10 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         numberInputField.delegate = self
-        collectionView.collectionViewLayout = TactLayout()
+     //   collectionView.collectionViewLayout = TactLayout()
+        collectionView.collectionViewLayout = UICollectionViewFlowLayout()
     }
-
+    
     // -----------------------------------------------------------------------------------------------------
     // MARK: - Local
     
@@ -51,7 +52,7 @@ class MainViewController: UIViewController {
     // -----------------------------------------------------------------------------------------------------
     // MARK: - Action:
     
-   
+    
     @IBAction func resetAction(_ sender: UIBarButtonItem) {
         numberOfMemberCellsOfSection = 0
         numberInputField.text = ""
@@ -70,6 +71,25 @@ class MainViewController: UIViewController {
 
 // ===================================================================================================
 
+extension MainViewController: UICollectionViewDelegateFlowLayout {
+    // If you do not implement this method, the flow layout uses the values in its itemSize property to set the size of items instead.
+    // Your implementation of this method can return a fixed set of sizes or dynamically adjust the sizes based on the cell’s content.
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: floor((collectionView.bounds.width - 2) / 3), height: 90)
+//    }
+    
+    // -----------------------------------------------------------------------------------------------------
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        let cellsPerRow: CGFloat = 4
+//        let widthRemainder = (collectionView.bounds.width -
+//            (cellsPerRow-1)).truncatingRemainder(dividingBy: cellsPerRow) / (cellsPerRow-1)
+//        return 1 + widthRemainder
+//    }
+//    
+}
+
+// ===================================================================================================
 
 extension MainViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -91,6 +111,7 @@ extension MainViewController: UICollectionViewDataSource {
         return  numberOfMemberCellsOfSection
     }
     
+    // **** Populating the cell:
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: cellQueueID, for: indexPath)
         if let textField = cell.contentView.viewWithTag(1) as? UITextField {
@@ -98,11 +119,5 @@ extension MainViewController: UICollectionViewDataSource {
         }
         return cell
     }
-}
-
-// ===================================================================================================
-
-extension UIViewController: UICollectionViewDelegate {
-    
 }
 

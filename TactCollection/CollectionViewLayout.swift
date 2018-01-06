@@ -9,31 +9,28 @@
 import Foundation
 import UIKit
 
-class TactLayout: UICollectionViewLayout {
+class TactLayout: UICollectionViewFlowLayout {
+    
+   // var itemSize = CGSize(width: 110, height: 90)
+    var itemSpacing: CGFloat = 10
+    var layoutAttributes = [UICollectionViewLayoutAttributes]()
     
     private var numberOfItems = 0
     private var numRows = 0
     private var numColumns = 0
     
-    var itemSize = CGSize(width: 110, height: 90)
-    var itemSpacing: CGFloat = 10
-    
-    var layoutAttributes = [UICollectionViewLayoutAttributes]()
-    
-    override var collectionViewContentSize: CGSize {
-//        let width = CGFloat(numColumns) * itemSize.width + CGFloat(numColumns - 1) * itemSpacing
-//        let height = CGFloat(numRows) * itemSize.height + CGFloat(numRows - 1) * itemSpacing
-        return CGSize(width: 490, height: 690)
-       // return CGSize(width: width, height: height)
-    }
-    
-    
+    // Note: collectionViewContentSize doesn't appear to override.  Code doesn't use this.
 //    override var collectionViewContentSize: CGSize {
-//        return itemSize
+//       let width = CGFloat(numColumns) * itemSize.width + CGFloat(numColumns - 1) * itemSpacing
+//       let height = CGFloat(numRows) * itemSize.height + CGFloat(numRows - 1) * itemSpacing
+//       return CGSize(width: width, height: height)
 //    }
+    
+    // Note: prepare() isn't called till user enters #cells to process.
     
     override func prepare() {
         print("Inside Prepare().")
+        
         guard let collectionView = collectionView
             else { return }
         
@@ -42,8 +39,8 @@ class TactLayout: UICollectionViewLayout {
         
         numberOfItems = collectionView.numberOfItems(inSection: 0)
         numRows = availableHeight/itemHeightForCalculation
-        
         numColumns = Int(ceil(CGFloat(numberOfItems) / CGFloat(numRows)))
+        
         layoutAttributes.removeAll()
         
         for itemIndex in 0..<numberOfItems {
