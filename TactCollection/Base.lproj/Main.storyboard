@@ -52,8 +52,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="34" height="34"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jgw-6z-GD6" userLabel="NumberField">
-                                                    <rect key="frame" x="0.0" y="10" width="35" height="14"/>
+                                                <textField opaque="NO" tag="1" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jgw-6z-GD6" userLabel="NumberField">
+                                                    <rect key="frame" x="0.0" y="10" width="34" height="14"/>
                                                     <color key="backgroundColor" red="0.99712616210000005" green="1" blue="0.76878422499999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>

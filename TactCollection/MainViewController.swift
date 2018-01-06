@@ -22,6 +22,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var numberInputField: UITextField!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    
     var numberOfMemberCellsOfSection = 0
     
     let columnLayout = ColumnFlowLayout(
@@ -97,6 +98,7 @@ extension MainViewController: UICollectionViewDataSource {
     }
     
     // **** Populating the cell ****:
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: cellQueueID, for: indexPath)
         if let textField = cell.contentView.viewWithTag(1) as? UITextField {
