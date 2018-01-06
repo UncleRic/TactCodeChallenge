@@ -25,8 +25,8 @@ class MainViewController: UIViewController {
     
     var numberOfMemberCellsOfSection = 0
     static let cellsPerRow = 5
-    static var cellCount = 0
-    static var cellFlag = false
+    var cellCount = 0
+    var cellFlag = false
     
     let columnLayout = ColumnFlowLayout(
         cellsPerRow: cellsPerRow,
@@ -34,7 +34,7 @@ class MainViewController: UIViewController {
         minimumLineSpacing: 10,
         sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     )
-
+    
     // MARK: - Initialization:
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -103,17 +103,17 @@ extension MainViewController: UICollectionViewDataSource {
     // **** Populating the cell ****:
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if MainViewController.cellCount > (MainViewController.cellsPerRow - 1) {
-            MainViewController.cellCount = 0
-            MainViewController.cellFlag = !MainViewController.cellFlag
+        if cellCount > (MainViewController.cellsPerRow - 1) {
+            cellCount = 0
+            cellFlag = !cellFlag
         }
         
         let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: cellQueueID, for: indexPath)
         if let textField = cell.contentView.viewWithTag(1) as? UITextField {
             // textField.text = String(indexPath.item)
-            textField.text = String(MainViewController.cellFlag)
+            textField.text = String(cellFlag)
         }
-        MainViewController.cellCount += 1
+        cellCount += 1
         return cell
     }
 }
