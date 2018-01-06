@@ -71,6 +71,20 @@ class MainViewController: UIViewController {
 
 // ===================================================================================================
 
+extension MainViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let numberOfCells = Int(numberInputField.text!) else {
+            return false
+        }
+        numberOfMemberCellsOfSection = numberOfCells
+        textField.resignFirstResponder()
+        standardLayout()
+        return true
+    }
+}
+
+// ===================================================================================================
+
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     // If you do not implement this method, the flow layout uses the values in its itemSize property to set the size of items instead.
     // Your implementation of this method can return a fixed set of sizes or dynamically adjust the sizes based on the cell’s content.
@@ -89,19 +103,6 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 //    
 }
 
-// ===================================================================================================
-
-extension MainViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let numberOfCells = Int(numberInputField.text!) else {
-            return false
-        }
-        numberOfMemberCellsOfSection = numberOfCells
-        textField.resignFirstResponder()
-        standardLayout()
-        return true
-    }
-}
 
 // ===================================================================================================
 
