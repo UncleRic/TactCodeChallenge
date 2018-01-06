@@ -33,7 +33,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        numberInputField.delegate = self
         collectionView.collectionViewLayout = TactLayout()
     }
 
