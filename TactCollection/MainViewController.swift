@@ -24,9 +24,12 @@ class MainViewController: UIViewController {
     
     
     var numberOfMemberCellsOfSection = 0
+    static let cellsPerRow = 5
+    static var cellCount = 0
+    static var cellFlag = false
     
     let columnLayout = ColumnFlowLayout(
-        cellsPerRow: 5,
+        cellsPerRow: cellsPerRow,
         minimumInteritemSpacing: 10,
         minimumLineSpacing: 10,
         sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -100,10 +103,17 @@ extension MainViewController: UICollectionViewDataSource {
     // **** Populating the cell ****:
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if MainViewController.cellCount > (MainViewController.cellsPerRow - 1) {
+            MainViewController.cellCount = 0
+            MainViewController.cellFlag = !MainViewController.cellFlag
+        }
+        
         let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: cellQueueID, for: indexPath)
         if let textField = cell.contentView.viewWithTag(1) as? UITextField {
-            textField.text = String(indexPath.item)
+            // textField.text = String(indexPath.item)
+            textField.text = String(MainViewController.cellFlag)
         }
+        MainViewController.cellCount += 1
         return cell
     }
 }
