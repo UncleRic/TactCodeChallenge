@@ -14,19 +14,6 @@ class TactCell: UICollectionViewCell {
     var textVield:UITextField?
 }
 
-// ===================================================================================================
-
-class TactLayout: UICollectionViewLayout {
-    
-    override var collectionViewContentSize: CGSize {
-             return CGSize.zero
-    }
-    
-    override func prepare() {
-
-    }
-    
-}
 
 // ===================================================================================================
 
@@ -35,7 +22,6 @@ class MainViewController: UIViewController {
     @IBOutlet weak var numberInputField: UITextField!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var myLayout: UICollectionViewLayout?
     var tactLayout:TactLayout = TactLayout()
     
     var numberOfMemberCellsOfSection = 0
@@ -48,7 +34,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        myLayout =  UICollectionViewLayout()
+        collectionView.collectionViewLayout = TactLayout()
     }
 
     // -----------------------------------------------------------------------------------------------------
