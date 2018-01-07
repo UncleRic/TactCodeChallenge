@@ -23,6 +23,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var numberOfMemberCellsOfSection = 0
+    var maxNumberOfCells:Int?
     var dataSourceArray:[Int]?
     
     static let cellsPerRow = 5
@@ -62,9 +63,13 @@ class MainViewController: UIViewController {
         let rows = MainViewController.rows
         
         // 1) Create an integer array of items per user entry:
-        var origArray = [Int]()
+        
+        maxNumberOfCells = MainViewController.rows * MainViewController.cellsPerRow
+        var origArray = Array(repeating: 0, count: maxNumberOfCells!)
+       // var origArray = [Int]()
+        
         for cellID in 0..<numberOfMemberCellsOfSection {
-            origArray.append(cellID)
+            origArray[cellID] = cellID
         }
         
         // 2) Break the array in slices per computed row:
@@ -94,10 +99,12 @@ class MainViewController: UIViewController {
     func computeNumberOfRows(_ cell: Int) {
         var cellItem = cell
         var rows = 0
+        
         repeat {
             rows += 1
             cellItem = cellItem - MainViewController.cellsPerRow
         } while cellItem > 0
+        
         MainViewController.rows = rows
     }
     
@@ -112,6 +119,7 @@ class MainViewController: UIViewController {
     
     @IBAction func resetAction(_ sender: UIBarButtonItem) {
         numberOfMemberCellsOfSection = 0
+        maxNumberOfCells = nil
         numberInputField.text = ""
         dataSourceArray = nil
         toolBar.items![toolbarItem.altRows.rawValue].isEnabled = false
@@ -162,7 +170,7 @@ extension MainViewController: UITextFieldDelegate {
 extension MainViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection numberOfSections: Int) -> Int {
-        return  numberOfMemberCellsOfSection
+        return  maxNumberOfCells ?? numberOfMemberCellsOfSection
     }
     
     // **** Populating the cell ****:
@@ -176,6 +184,7 @@ extension MainViewController: UICollectionViewDataSource {
         }
         let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: cellQueueID, for: indexPath)
         if let textField = cell.contentView.viewWithTag(1) as? UITextField {
+            textField.isHidden = (dataInt == 0 && indexPath.row > 0)
             textField.text = String(dataInt)
         }
         
