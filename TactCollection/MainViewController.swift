@@ -27,7 +27,10 @@ class MainViewController: UIViewController {
     var dataSourceArray:[Int]?
     
     static let cellsPerRow = 5
-    static var rows = 0
+    
+    var rows:Int {
+        return Int(ceil(CGFloat(numberOfMemberCellsOfSection)/CGFloat(MainViewController.cellsPerRow)))
+    }
     
     enum toolbarItem:Int {
         case exit = 0
@@ -60,11 +63,10 @@ class MainViewController: UIViewController {
     //
     func AlternatingRowsArray() {
         let columns = MainViewController.cellsPerRow
-        let rows = MainViewController.rows
         
         // 1) Create an integer array of items per user entry:
         
-        maxNumberOfCells = MainViewController.rows * MainViewController.cellsPerRow
+        maxNumberOfCells = rows * MainViewController.cellsPerRow
         var origArray = Array(repeating: 0, count: maxNumberOfCells!)
         
         for cellID in 0..<numberOfMemberCellsOfSection {
@@ -144,7 +146,7 @@ extension MainViewController: UITextFieldDelegate {
         toolBar.items![toolbarItem.morphed.rawValue].isEnabled = true
         
         numberOfMemberCellsOfSection = numberOfCells
-        MainViewController.rows = Int(ceil(CGFloat(numberOfMemberCellsOfSection)/CGFloat(MainViewController.cellsPerRow)))
+       
         textField.resignFirstResponder()
         collectionView.reloadData()
         return true
