@@ -66,7 +66,6 @@ class MainViewController: UIViewController {
         
         maxNumberOfCells = MainViewController.rows * MainViewController.cellsPerRow
         var origArray = Array(repeating: 0, count: maxNumberOfCells!)
-       // var origArray = [Int]()
         
         for cellID in 0..<numberOfMemberCellsOfSection {
             origArray[cellID] = cellID
@@ -92,20 +91,6 @@ class MainViewController: UIViewController {
         }
         
         dataSourceArray = newArray
-    }
-    
-    // -----------------------------------------------------------------------------------------------------
-    
-    func computeNumberOfRows(_ cell: Int) {
-        var cellItem = cell
-        var rows = 0
-        
-        repeat {
-            rows += 1
-            cellItem = cellItem - MainViewController.cellsPerRow
-        } while cellItem > 0
-        
-        MainViewController.rows = rows
     }
     
     // -----------------------------------------------------------------------------------------------------
@@ -154,10 +139,12 @@ extension MainViewController: UITextFieldDelegate {
             textField.text = ""
             return false
         }
-        computeNumberOfRows(numberOfCells)
+        
         toolBar.items![toolbarItem.altRows.rawValue].isEnabled = true
         toolBar.items![toolbarItem.morphed.rawValue].isEnabled = true
+        
         numberOfMemberCellsOfSection = numberOfCells
+        MainViewController.rows = Int(ceil(CGFloat(numberOfMemberCellsOfSection)/CGFloat(MainViewController.cellsPerRow)))
         textField.resignFirstResponder()
         collectionView.reloadData()
         return true
