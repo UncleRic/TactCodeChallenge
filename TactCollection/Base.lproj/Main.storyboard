@@ -88,6 +88,11 @@
                                             <action selector="resetAction:" destination="BYZ-38-t0r" id="bED-Sg-SuF"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem title="Alt Rows" id="efS-w8-vka">
+                                        <connections>
+                                            <action selector="altRowsAction:" destination="BYZ-38-t0r" id="fb9-tg-VyB"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem title="Morphed" id="fCO-DS-LNT">
                                         <connections>
                                             <action selector="morphedAction:" destination="BYZ-38-t0r" id="BAW-nN-PPT"/>

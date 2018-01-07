@@ -22,11 +22,11 @@ class MainViewController: UIViewController {
     @IBOutlet weak var numberInputField: UITextField!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    
     var numberOfMemberCellsOfSection = 0
+    var dataSourceArray:[Int]?
+    
     static let cellsPerRow = 5
-    var cellCount = 0
-    var cellFlag = false
+    static let rows = 4
     
     let columnLayout = ColumnFlowLayout(
         cellsPerRow: cellsPerRow,
@@ -46,27 +46,64 @@ class MainViewController: UIViewController {
         collectionView?.collectionViewLayout = columnLayout
     }
     
-    
     // -----------------------------------------------------------------------------------------------------
     // MARK: - Local
-    
-    func standardLayout() {
-        print("Standard Layout: \(numberOfMemberCellsOfSection)")
-        collectionView.reloadData()
+    // Prepping Data from user input integer: Alternating rows of L->R & R->L integers.
+    //
+    func AlternatingRowsArray() {
+        let columns = MainViewController.cellsPerRow
+        let rows = MainViewController.rows
+       
+        // 1) Create an integer array of items per user entry:
+        var origArray = [Int]()
+        for cellID in 0..<numberOfMemberCellsOfSection {
+            origArray.append(cellID)
+        }
+        
+        // 2) Break the array in slices per computed row:
+        
+        var newArray = [Int]()
+        var k = 0
+        var col = columns - 1
+        var reverse = false
+        
+        for _ in 0..<rows {
+            var myArray = Array(origArray[k...col])
+            if reverse {
+                myArray = myArray.reversed()
+            }
+            newArray = newArray + myArray
+            print(myArray)
+            k += columns
+            col += columns
+            reverse = !reverse
+        }
+        
+        dataSourceArray = newArray
     }
+    
+    // -----------------------------------------------------------------------------------------------------
     
     func morphedLayout() {
-        
+        print("-- Morphed Layout() ---")
     }
+    
     // -----------------------------------------------------------------------------------------------------
     // MARK: - Action:
-    
     
     @IBAction func resetAction(_ sender: UIBarButtonItem) {
         numberOfMemberCellsOfSection = 0
         numberInputField.text = ""
-        standardLayout()
+        dataSourceArray = nil
+        collectionView.reloadData()
     }
+    
+    @IBAction func altRowsAction(_ sender: UIBarButtonItem) {
+        guard let _ = dataSourceArray else {return}
+        AlternatingRowsArray()
+        collectionView.reloadData()
+    }
+    
     
     @IBAction func morphedAction(_ sender: UIBarButtonItem) {
         morphedLayout()
@@ -87,7 +124,7 @@ extension MainViewController: UITextFieldDelegate {
         }
         numberOfMemberCellsOfSection = numberOfCells
         textField.resignFirstResponder()
-        standardLayout()
+        collectionView.reloadData()
         return true
     }
 }
@@ -103,17 +140,17 @@ extension MainViewController: UICollectionViewDataSource {
     // **** Populating the cell ****:
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if cellCount > (MainViewController.cellsPerRow - 1) {
-            cellCount = 0
-            cellFlag = !cellFlag
+        var dataInt = 0
+        if let dataSourceArray = dataSourceArray {
+            dataInt = dataSourceArray[indexPath.item]
+        } else {
+            dataInt = indexPath.item
         }
-        
         let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: cellQueueID, for: indexPath)
         if let textField = cell.contentView.viewWithTag(1) as? UITextField {
-            // textField.text = String(indexPath.item)
-            textField.text = String(cellFlag)
+            textField.text = String(dataInt)
         }
-        cellCount += 1
+    
         return cell
     }
 }
