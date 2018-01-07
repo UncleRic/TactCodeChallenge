@@ -78,22 +78,22 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ug4-UL-kHK">
                                 <rect key="frame" x="1" y="622" width="375" height="44"/>
                                 <items>
-                                    <barButtonItem title="Exit" id="Hge-V5-EDp">
+                                    <barButtonItem tag="1" title="Exit" id="Hge-V5-EDp">
                                         <connections>
                                             <action selector="exitAction:" destination="BYZ-38-t0r" id="cdj-Sf-NaW"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Reset" id="Dvp-Ju-kZw">
+                                    <barButtonItem tag="2" title="Reset" id="Dvp-Ju-kZw">
                                         <connections>
                                             <action selector="resetAction:" destination="BYZ-38-t0r" id="bED-Sg-SuF"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Alt Rows" id="efS-w8-vka">
+                                    <barButtonItem tag="3" enabled="NO" title="Alt Rows" id="efS-w8-vka">
                                         <connections>
                                             <action selector="altRowsAction:" destination="BYZ-38-t0r" id="fb9-tg-VyB"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Morphed" id="fCO-DS-LNT">
+                                    <barButtonItem tag="4" enabled="NO" title="Morphed" id="fCO-DS-LNT">
                                         <connections>
                                             <action selector="morphedAction:" destination="BYZ-38-t0r" id="BAW-nN-PPT"/>
                                         </connections>
@@ -119,6 +119,7 @@
                     <connections>
                         <outlet property="collectionView" destination="03R-jy-oWO" id="2Zs-VC-WvD"/>
                         <outlet property="numberInputField" destination="z0x-60-ygB" id="Si1-Fd-5RB"/>
+                        <outlet property="toolBar" destination="ug4-UL-kHK" id="L4B-rJ-T7q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

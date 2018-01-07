@@ -18,7 +18,7 @@ class TactCell: UICollectionViewCell {
 // ===================================================================================================
 
 class MainViewController: UIViewController {
-    
+    @IBOutlet weak var toolBar: UIToolbar!
     @IBOutlet weak var numberInputField: UITextField!
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -26,7 +26,14 @@ class MainViewController: UIViewController {
     var dataSourceArray:[Int]?
     
     static let cellsPerRow = 5
-    static let rows = 4
+    static var rows = 0
+    
+    enum toolbarItem:Int {
+        case exit = 0
+        case reset
+        case altRows
+        case morphed
+    }
     
     let columnLayout = ColumnFlowLayout(
         cellsPerRow: cellsPerRow,
@@ -53,7 +60,7 @@ class MainViewController: UIViewController {
     func AlternatingRowsArray() {
         let columns = MainViewController.cellsPerRow
         let rows = MainViewController.rows
-       
+        
         // 1) Create an integer array of items per user entry:
         var origArray = [Int]()
         for cellID in 0..<numberOfMemberCellsOfSection {
@@ -84,6 +91,18 @@ class MainViewController: UIViewController {
     
     // -----------------------------------------------------------------------------------------------------
     
+    func computeNumberOfRows(_ cell: Int) {
+        var cellItem = cell
+        var rows = 0
+        repeat {
+            rows += 1
+            cellItem = cellItem - MainViewController.cellsPerRow
+        } while cellItem > 0
+        MainViewController.rows = rows
+    }
+    
+    // -----------------------------------------------------------------------------------------------------
+    
     func morphedLayout() {
         print("-- Morphed Layout() ---")
     }
@@ -95,11 +114,14 @@ class MainViewController: UIViewController {
         numberOfMemberCellsOfSection = 0
         numberInputField.text = ""
         dataSourceArray = nil
+        toolBar.items![toolbarItem.altRows.rawValue].isEnabled = false
+        toolBar.items![toolbarItem.morphed.rawValue].isEnabled = false
         collectionView.reloadData()
     }
     
     @IBAction func altRowsAction(_ sender: UIBarButtonItem) {
-        guard let _ = dataSourceArray else {return}
+        guard nil == dataSourceArray else {return}
+        toolBar.items![toolbarItem.altRows.rawValue].isEnabled = false
         AlternatingRowsArray()
         collectionView.reloadData()
     }
@@ -116,12 +138,17 @@ class MainViewController: UIViewController {
 }
 
 // ===================================================================================================
+// UITextField Delegate:
 
 extension MainViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let numberOfCells = Int(numberInputField.text!) else {
+            textField.text = ""
             return false
         }
+        computeNumberOfRows(numberOfCells)
+        toolBar.items![toolbarItem.altRows.rawValue].isEnabled = true
+        toolBar.items![toolbarItem.morphed.rawValue].isEnabled = true
         numberOfMemberCellsOfSection = numberOfCells
         textField.resignFirstResponder()
         collectionView.reloadData()
@@ -130,6 +157,7 @@ extension MainViewController: UITextFieldDelegate {
 }
 
 // ===================================================================================================
+// UICollectionViewDataSource:
 
 extension MainViewController: UICollectionViewDataSource {
     
@@ -150,7 +178,7 @@ extension MainViewController: UICollectionViewDataSource {
         if let textField = cell.contentView.viewWithTag(1) as? UITextField {
             textField.text = String(dataInt)
         }
-    
+        
         return cell
     }
 }
