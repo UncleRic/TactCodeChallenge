@@ -82,6 +82,7 @@ class MorphedViewLayout: UICollectionViewLayout {
             let row = itemIndex % numRows
             let column = itemIndex / numRows
             
+            itemSize.width -= 2.0; itemSize.height -= 2.0
             var xPos = column * Int(itemSize.width + itemSpacing)
             if row % 2 == 1 {
                 xPos += Int(itemSize.width / 2)

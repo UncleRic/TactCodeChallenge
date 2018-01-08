@@ -127,6 +127,7 @@ class MainViewController: UIViewController {
         collectionView.collectionViewLayout = standardViewLayout
         toolBar.items![toolbarItem.altRows.rawValue].isEnabled = true
         toolBar.items![toolbarItem.standard.rawValue].isEnabled = false
+        toolBar.items![toolbarItem.morphed.rawValue].isEnabled = true
         alternatingRowDataSourceArray = nil
         collectionView.reloadData()
     }
@@ -136,6 +137,7 @@ class MainViewController: UIViewController {
         collectionView.collectionViewLayout = standardViewLayout
         toolBar.items![toolbarItem.altRows.rawValue].isEnabled = false
         toolBar.items![toolbarItem.standard.rawValue].isEnabled = true
+        toolBar.items![toolbarItem.morphed.rawValue].isEnabled = true
         AlternatingRowsArray()
         titleLabel.text = title.altered.rawValue
         collectionView.reloadData()
@@ -144,6 +146,9 @@ class MainViewController: UIViewController {
     
     @IBAction func morphedAction(_ sender: UIBarButtonItem) {
         collectionView.collectionViewLayout = MorphedViewLayout()
+        toolBar.items![toolbarItem.standard.rawValue].isEnabled = true
+        toolBar.items![toolbarItem.altRows.rawValue].isEnabled = true
+        toolBar.items![toolbarItem.morphed.rawValue].isEnabled = false
         titleLabel.text = title.morphed.rawValue
     }
     
