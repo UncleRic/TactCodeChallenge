@@ -104,6 +104,10 @@ class MainViewController: UIViewController {
     // -----------------------------------------------------------------------------------------------------
     // MARK: - Action:
     
+    @IBAction func tapGestureAction(_ sender: UITapGestureRecognizer) {
+        numberInputField.resignFirstResponder()
+    }
+    
     @IBAction func resetAction(_ sender: UIBarButtonItem) {
         numberOfMemberCellsOfSection = 0
         maxNumberOfCells = nil
