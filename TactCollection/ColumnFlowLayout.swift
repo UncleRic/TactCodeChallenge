@@ -8,6 +8,12 @@
 
 import UIKit
 
+class MorphedViewLayout: UICollectionViewFlowLayout {
+    
+}
+
+// ===================================================================================================
+
 class ColumnFlowLayout: UICollectionViewFlowLayout {
     
     let cellsPerRow: Int

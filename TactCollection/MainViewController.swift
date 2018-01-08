@@ -86,7 +86,6 @@ class MainViewController: UIViewController {
                 myArray = myArray.reversed()
             }
             newArray = newArray + myArray
-            print(myArray)
             k += columns
             col += columns
             reverse = !reverse
