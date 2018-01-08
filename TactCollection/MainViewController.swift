@@ -21,11 +21,12 @@ class MainViewController: UIViewController {
     @IBOutlet weak var toolBar: UIToolbar!
     @IBOutlet weak var numberInputField: UITextField!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var titleLabel: UILabel!
     
     var numberOfMemberCellsOfSection = 0
     var maxNumberOfCells:Int?
-    var dataSourceArray:[Int]?
-    
+    var alternatingRowDataSourceArray:[Int]?
+    let standardViewLayout:StandardViewLayout!
     static let cellsPerRow = 5
     
     var rows:Int {
@@ -35,19 +36,25 @@ class MainViewController: UIViewController {
     enum toolbarItem:Int {
         case exit = 0
         case reset
+        case standard
         case altRows
         case morphed
     }
     
-    let columnLayout = MorphedViewLayout(
-        cellsPerRow: cellsPerRow,
-        minimumInteritemSpacing: 10,
-        minimumLineSpacing: 10,
-        sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-    )
+    enum title:String {
+        case standard = "Standard"
+        case altered = "Alternating Rows"
+        case morphed = "Morphed Cells"
+    }
     
     // MARK: - Initialization:
     required init?(coder aDecoder: NSCoder) {
+        standardViewLayout = StandardViewLayout(
+            cellsPerRow: MainViewController.cellsPerRow,
+            minimumInteritemSpacing: 10,
+            minimumLineSpacing: 10,
+            sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        )
         super.init(coder: aDecoder)
     }
     
@@ -55,6 +62,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         numberInputField.delegate = self
+        collectionView.collectionViewLayout = standardViewLayout
     }
     
     // -----------------------------------------------------------------------------------------------------
@@ -91,13 +99,7 @@ class MainViewController: UIViewController {
             reverse = !reverse
         }
         
-        dataSourceArray = newArray
-    }
-    
-    // -----------------------------------------------------------------------------------------------------
-    
-    func morphedLayout() {
-        print("-- Morphed Layout() ---")
+        alternatingRowDataSourceArray = newArray
     }
     
     // -----------------------------------------------------------------------------------------------------
@@ -111,22 +113,37 @@ class MainViewController: UIViewController {
         numberOfMemberCellsOfSection = 0
         maxNumberOfCells = nil
         numberInputField.text = ""
-        dataSourceArray = nil
+        alternatingRowDataSourceArray = nil
+        titleLabel.text = title.standard.rawValue
+        titleLabel.isHidden = true
+        toolBar.items![toolbarItem.standard.rawValue].isEnabled = false
         toolBar.items![toolbarItem.altRows.rawValue].isEnabled = false
         toolBar.items![toolbarItem.morphed.rawValue].isEnabled = false
+        collectionView.collectionViewLayout = standardViewLayout
+        collectionView.reloadData()
+    }
+    
+    @IBAction func standardAction(_ sender: Any) {
+        collectionView.collectionViewLayout = standardViewLayout
+        toolBar.items![toolbarItem.altRows.rawValue].isEnabled = true
+        toolBar.items![toolbarItem.standard.rawValue].isEnabled = false
+        alternatingRowDataSourceArray = nil
         collectionView.reloadData()
     }
     
     @IBAction func altRowsAction(_ sender: UIBarButtonItem) {
-        guard nil == dataSourceArray else {return}
+        guard nil == alternatingRowDataSourceArray else {return}
         toolBar.items![toolbarItem.altRows.rawValue].isEnabled = false
+        toolBar.items![toolbarItem.standard.rawValue].isEnabled = true
         AlternatingRowsArray()
+        titleLabel.text = title.altered.rawValue
         collectionView.reloadData()
     }
     
     
     @IBAction func morphedAction(_ sender: UIBarButtonItem) {
-        morphedLayout()
+        collectionView.collectionViewLayout = MorphedViewLayout()
+        titleLabel.text = title.morphed.rawValue
     }
     
     
@@ -147,9 +164,11 @@ extension MainViewController: UITextFieldDelegate {
         
         toolBar.items![toolbarItem.altRows.rawValue].isEnabled = true
         toolBar.items![toolbarItem.morphed.rawValue].isEnabled = true
+        titleLabel.isHidden = false
+        titleLabel.text = title.standard.rawValue
         
         numberOfMemberCellsOfSection = numberOfCells
-       
+        
         textField.resignFirstResponder()
         collectionView.reloadData()
         return true
@@ -169,8 +188,8 @@ extension MainViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var dataInt = 0
-        if let dataSourceArray = dataSourceArray {
-            dataInt = dataSourceArray[indexPath.item]
+        if let alternatingRowDataSourceArray = alternatingRowDataSourceArray {
+            dataInt = alternatingRowDataSourceArray[indexPath.item]
         } else {
             dataInt = indexPath.item
         }

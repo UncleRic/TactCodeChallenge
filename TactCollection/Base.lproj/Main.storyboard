@@ -10,6 +10,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Georgia.ttf">
+            <string>Georgia</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -38,7 +43,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="03R-jy-oWO">
                                 <rect key="frame" x="38" y="129" width="299" height="429"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" sectionInsetReference="safeArea" id="D2C-7j-lgk" customClass="StandardViewLayout" customModule="TactCollection" customModuleProvider="target">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" sectionInsetReference="safeArea" id="D2C-7j-lgk">
                                     <size key="itemSize" width="34" height="34"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -88,18 +93,33 @@
                                             <action selector="resetAction:" destination="BYZ-38-t0r" id="bED-Sg-SuF"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem tag="3" enabled="NO" title="Alt Rows" id="efS-w8-vka">
+                                    <barButtonItem tag="3" enabled="NO" title="Standard" id="bSh-rh-SYd">
+                                        <connections>
+                                            <action selector="standardAction:" destination="BYZ-38-t0r" id="2vh-Db-udr"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem tag="4" enabled="NO" title="Alt Rows" id="efS-w8-vka">
                                         <connections>
                                             <action selector="altRowsAction:" destination="BYZ-38-t0r" id="fb9-tg-VyB"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem tag="4" enabled="NO" title="Morphed" id="fCO-DS-LNT">
+                                    <barButtonItem tag="5" enabled="NO" title="Morphed" id="fCO-DS-LNT">
                                         <connections>
                                             <action selector="morphedAction:" destination="BYZ-38-t0r" id="BAW-nN-PPT"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i0F-V7-V34">
+                                <rect key="frame" x="112.5" y="569" width="150" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="ah3-1h-tic"/>
+                                    <constraint firstAttribute="width" constant="150" id="cyS-7n-MmP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="17"/>
+                                <color key="textColor" red="0.56565517190000003" green="0.1548579782" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.77363037999999995" green="1" blue="0.94208932970000003" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
@@ -108,11 +128,13 @@
                             <constraint firstItem="ug4-UL-kHK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="1" id="4Vi-rb-ei5"/>
                             <constraint firstItem="03R-jy-oWO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="109" id="AuN-G2-Q2F"/>
                             <constraint firstItem="03R-jy-oWO" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="CZi-Gz-qZh"/>
+                            <constraint firstItem="i0F-V7-V34" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Dky-TJ-noJ"/>
                             <constraint firstItem="03R-jy-oWO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="38" id="ELF-RN-fD3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ug4-UL-kHK" secondAttribute="trailing" constant="-17" id="EVO-fc-M6J"/>
                             <constraint firstItem="A5S-Cm-4K4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="41" id="SXU-5Y-EDU"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="A5S-Cm-4K4" secondAttribute="trailing" constant="20" symbolic="YES" id="ZwT-oB-dnp"/>
                             <constraint firstItem="A5S-Cm-4K4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="46" id="axz-oM-QPz"/>
+                            <constraint firstItem="i0F-V7-V34" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-98" id="eyp-2f-eXt"/>
                             <constraint firstItem="ug4-UL-kHK" firstAttribute="top" secondItem="03R-jy-oWO" secondAttribute="bottom" constant="64" id="f6u-e1-Ibq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -123,6 +145,7 @@
                     <connections>
                         <outlet property="collectionView" destination="03R-jy-oWO" id="2Zs-VC-WvD"/>
                         <outlet property="numberInputField" destination="z0x-60-ygB" id="Si1-Fd-5RB"/>
+                        <outlet property="titleLabel" destination="i0F-V7-V34" id="eZF-vk-1tj"/>
                         <outlet property="toolBar" destination="ug4-UL-kHK" id="L4B-rJ-T7q"/>
                     </connections>
                 </viewController>
