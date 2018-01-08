@@ -1,5 +1,5 @@
 //
-//  ColumnFlowLayout.swift
+//  MorphedViewLayout.swift
 //  TactCollection
 //
 //  Created by Frederick C. Lee on 1/6/18.
@@ -8,13 +8,37 @@
 
 import UIKit
 
-class MorphedViewLayout: UICollectionViewFlowLayout {
+class StandardViewLayout: UICollectionViewFlowLayout {
+    
+    var cellsPerRow: Int
+    override var itemSize: CGSize {
+        get {
+            guard let collectionView = collectionView else { return super.itemSize }
+            let marginsAndInsets = sectionInset.left + sectionInset.right + minimumInteritemSpacing * CGFloat(cellsPerRow - 1)
+            let itemWidth = ((collectionView.bounds.size.width - marginsAndInsets) / CGFloat(cellsPerRow)).rounded(.down)
+            return CGSize(width: itemWidth, height: itemWidth)
+        }
+        set {
+            super.itemSize = newValue
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        cellsPerRow = 5
+        super.init(coder: aDecoder)
+    }
+    
+    override func invalidationContext(forBoundsChange newBounds: CGRect) -> UICollectionViewLayoutInvalidationContext {
+        let context = super.invalidationContext(forBoundsChange: newBounds) as! UICollectionViewFlowLayoutInvalidationContext
+        context.invalidateFlowLayoutDelegateMetrics = newBounds != collectionView?.bounds
+        return context
+    }
     
 }
 
 // ===================================================================================================
 
-class ColumnFlowLayout: UICollectionViewFlowLayout {
+class MorphedViewLayout: UICollectionViewFlowLayout {
     
     let cellsPerRow: Int
     override var itemSize: CGSize {

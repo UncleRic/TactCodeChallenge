@@ -39,7 +39,7 @@ class MainViewController: UIViewController {
         case morphed
     }
     
-    let columnLayout = ColumnFlowLayout(
+    let columnLayout = MorphedViewLayout(
         cellsPerRow: cellsPerRow,
         minimumInteritemSpacing: 10,
         minimumLineSpacing: 10,
@@ -51,10 +51,10 @@ class MainViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
+    // *** VIEW DID LOAD ***
     override func viewDidLoad() {
         super.viewDidLoad()
         numberInputField.delegate = self
-        collectionView?.collectionViewLayout = columnLayout
     }
     
     // -----------------------------------------------------------------------------------------------------
