@@ -50,7 +50,7 @@ class StandardViewLayout: UICollectionViewFlowLayout {
 
 class MorphedViewLayout: UICollectionViewLayout {
     
-    var itemSize = CGSize(width: 110, height: 90)
+    var itemSize = CGSize(width: 50, height: 50)
     var itemSpacing: CGFloat = 10
     
     var layoutAttributes = [UICollectionViewLayoutAttributes]()

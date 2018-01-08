@@ -133,6 +133,7 @@ class MainViewController: UIViewController {
     
     @IBAction func altRowsAction(_ sender: UIBarButtonItem) {
         guard nil == alternatingRowDataSourceArray else {return}
+        collectionView.collectionViewLayout = standardViewLayout
         toolBar.items![toolbarItem.altRows.rawValue].isEnabled = false
         toolBar.items![toolbarItem.standard.rawValue].isEnabled = true
         AlternatingRowsArray()
