@@ -18,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		181CB54C1FFECEED006DF4DA /* Layout Task.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Layout Task.txt"; sourceTree = "<group>"; };
+		18529FF22003DC34004FF3DF /* Layout.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Layout.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		1865F887200167630065E1E7 /* CollectionFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionFlowLayout.swift; sourceTree = "<group>"; };
 		18D73DF01FFEC11F00C5BCF3 /* TactCollection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TactCollection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18D73DF31FFEC11F00C5BCF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +60,7 @@
 		18D73DF21FFEC11F00C5BCF3 /* TactCollection */ = {
 			isa = PBXGroup;
 			children = (
+				18529FF22003DC34004FF3DF /* Layout.playground */,
 				18D73DF31FFEC11F00C5BCF3 /* AppDelegate.swift */,
 				18D73E091FFEC3FD00C5BCF3 /* MainViewController.swift */,
 				1865F887200167630065E1E7 /* CollectionFlowLayout.swift */,

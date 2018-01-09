@@ -8,6 +8,9 @@
 
 import UIKit
 
+
+// StandardViewLayout: the default View Layout
+
 class StandardViewLayout: UICollectionViewFlowLayout {
     let cellsPerRow: Int
     override var itemSize: CGSize {
@@ -48,9 +51,9 @@ class StandardViewLayout: UICollectionViewFlowLayout {
 
 // ===================================================================================================
 
-class MorphedViewLayout: UICollectionViewLayout {
+class MorphedViewLayout: UICollectionViewFlowLayout {
     
-    var itemSize = CGSize(width: 50, height: 50)
+    // var itemSize = CGSize(width: 50, height: 50)
     var itemSpacing: CGFloat = 10
     
     var layoutAttributes = [UICollectionViewLayoutAttributes]()
@@ -82,12 +85,7 @@ class MorphedViewLayout: UICollectionViewLayout {
             let row = itemIndex % numRows
             let column = itemIndex / numRows
             
-            itemSize.width -= 2.0; itemSize.height -= 2.0
             var xPos = column * Int(itemSize.width + itemSpacing)
-            if row % 2 == 1 {
-                xPos += Int(itemSize.width / 2)
-            }
-            
             let yPos = row * Int(itemSize.height + itemSpacing)
             
             let index = IndexPath(row: itemIndex, section: 0)
@@ -95,17 +93,25 @@ class MorphedViewLayout: UICollectionViewLayout {
             attributes.frame = CGRect(x: CGFloat(xPos), y: CGFloat(yPos), width: itemSize.width, height: itemSize.height)
             
             layoutAttributes.append(attributes)
+            
         }
+
     }
     
+    // -----------------------------------------------------------------------------------------------------
+    
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        guard let collectionView = collectionView else { return true }
-        
-        let availableHeight = newBounds.height - collectionView.contentInset.top - collectionView.contentInset.bottom
-        let possibleRows = Int(availableHeight + itemSpacing) / Int(itemSize.height + itemSpacing)
-        
-        return possibleRows != numRows 
+     //   guard let collectionView = collectionView else { return true }
+//
+    //    let availableHeight = newBounds.height - collectionView.contentInset.top - collectionView.contentInset.bottom
+     //   let possibleRows = Int(availableHeight + itemSpacing) / Int(itemSize.height + itemSpacing)
+//
+//        return possibleRows != numRows
+
+        return false
     }
+    
+    // -----------------------------------------------------------------------------------------------------
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         return layoutAttributes.filter { attributes in
@@ -113,7 +119,10 @@ class MorphedViewLayout: UICollectionViewLayout {
         }
     }
     
+    // -----------------------------------------------------------------------------------------------------
+    
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        print("indexPath.row: \(indexPath.row)")
         return layoutAttributes[indexPath.row]
     }
     
