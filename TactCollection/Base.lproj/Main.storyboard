@@ -90,7 +90,7 @@
                                     </barButtonItem>
                                     <barButtonItem tag="2" title="Reset" id="Dvp-Ju-kZw">
                                         <connections>
-                                            <action selector="resetAction:" destination="BYZ-38-t0r" id="bED-Sg-SuF"/>
+                                            <action selector="resetAction" destination="BYZ-38-t0r" id="KYI-an-5jr"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem tag="3" enabled="NO" title="Standard" id="bSh-rh-SYd">

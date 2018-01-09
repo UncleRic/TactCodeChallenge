@@ -78,20 +78,25 @@ class MorphedViewLayout: UICollectionViewFlowLayout {
         
         numberOfItems = collectionView.numberOfItems(inSection: 0)
         numRows = availableHeight / itemHeightForCalculation
-        numColumns = Int(ceil(CGFloat(numberOfItems) / CGFloat(numRows)))
+        numColumns = 5
         layoutAttributes.removeAll()
         
         for itemIndex in 0..<numberOfItems {
-            let row = itemIndex % numRows
-            let column = itemIndex / numRows
+            // problem here:
+            let row = Int(floor(Float(itemIndex) / Float(numColumns)))
+            let column = itemIndex % numColumns
             
-            var xPos = column * Int(itemSize.width + itemSpacing)
+            itemSize.width -= 2
+            
+            let xPos = column * Int(itemSize.width + itemSpacing)
             let yPos = row * Int(itemSize.height + itemSpacing)
+            
+        //    print("xPos: \(xPos) | yPos: \(yPos)")
             
             let index = IndexPath(row: itemIndex, section: 0)
             let attributes = UICollectionViewLayoutAttributes(forCellWith: index)
             attributes.frame = CGRect(x: CGFloat(xPos), y: CGFloat(yPos), width: itemSize.width, height: itemSize.height)
-            
+          //  print("row: \(row)) attributes.frame: \(attributes.frame)")
             layoutAttributes.append(attributes)
             
         }
@@ -122,7 +127,9 @@ class MorphedViewLayout: UICollectionViewFlowLayout {
     // -----------------------------------------------------------------------------------------------------
     
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        print("indexPath.row: \(indexPath.row)")
+        guard layoutAttributes.count > 0 else {
+            return nil
+        }
         return layoutAttributes[indexPath.row]
     }
     

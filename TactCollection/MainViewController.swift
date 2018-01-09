@@ -109,7 +109,8 @@ class MainViewController: UIViewController {
         numberInputField.resignFirstResponder()
     }
     
-    @IBAction func resetAction(_ sender: UIBarButtonItem) {
+    @IBAction func resetAction() {
+        collectionView.collectionViewLayout = standardViewLayout
         numberOfMemberCellsOfSection = 0
         maxNumberOfCells = nil
         numberInputField.text = ""
@@ -119,7 +120,6 @@ class MainViewController: UIViewController {
         toolBar.items![toolbarItem.standard.rawValue].isEnabled = false
         toolBar.items![toolbarItem.altRows.rawValue].isEnabled = false
         toolBar.items![toolbarItem.morphed.rawValue].isEnabled = false
-        collectionView.collectionViewLayout = standardViewLayout
         collectionView.reloadData()
     }
     
@@ -177,6 +177,13 @@ extension MainViewController: UITextFieldDelegate {
         
         textField.resignFirstResponder()
         collectionView.reloadData()
+        return true
+    }
+    
+    // -----------------------------------------------------------------------------------------------------
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        resetAction()
         return true
     }
 }
