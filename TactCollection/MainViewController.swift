@@ -28,6 +28,13 @@ class MainViewController: UIViewController {
     var alternatingRowDataSourceArray:[Int]?
     let standardViewLayout:StandardViewLayout!
     
+    var selectionMode = false {
+        didSet {
+            collectionView.collectionViewLayout.invalidateLayout()
+            collectionView.layoutIfNeeded()
+        }
+    }
+    
     var isStandard = true
     
     static var cellsPerRow = 0
@@ -57,7 +64,7 @@ class MainViewController: UIViewController {
         )
         super.init(coder: aDecoder)
     }
-  
+    
     
     // ===================================================================================================
     
@@ -76,14 +83,6 @@ class MainViewController: UIViewController {
         
         MainViewController.cellsPerRow = columns.count
         MainViewController.rows = rows.count
-    }
-    
-    
-    var selectionMode = false {
-        didSet {
-            collectionView.collectionViewLayout.invalidateLayout()
-            collectionView.layoutIfNeeded()
-        }
     }
     
     // -----------------------------------------------------------------------------------------------------
@@ -194,6 +193,9 @@ class MainViewController: UIViewController {
     @IBAction func exitAction(_ sender: UIBarButtonItem) {
         exit(0)
     }
+    
+    
+    
 }
 
 // ===================================================================================================
@@ -275,6 +277,33 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         
         return separatorSize(isInSelectionMode: selectionMode).width
         
+    }
+    
+    // -----------------------------------------------------------------------------------------------------
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let totalRowHeight: CGFloat = 100
+        let widthRatio: CGFloat
+        
+        switch indexPath.item % 4 {
+            case 0, 3: widthRatio = (2.0 / 3.0)
+            case 1, 2: widthRatio = (1.0 / 3.0)
+            default: widthRatio = 1.0
+        }
+        
+        var width:CGFloat = 0.0; var height:CGFloat = 0.0
+        
+        if isStandard {
+            width = 50.0; height = 50.0
+        } else {
+            width = (collectionView.bounds.width - separatorSize(isInSelectionMode: selectionMode).width) * widthRatio
+            height = totalRowHeight - separatorSize(isInSelectionMode: selectionMode).height
+        }
+        
+        return CGSize(width: width, height: height)
     }
 }
 
