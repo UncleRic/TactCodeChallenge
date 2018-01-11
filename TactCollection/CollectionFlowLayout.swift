@@ -86,17 +86,16 @@ class MorphedViewLayout: UICollectionViewFlowLayout {
             let row = Int(floor(Float(itemIndex) / Float(numColumns)))
             let column = itemIndex % numColumns
             
-            itemSize.width -= 2
+            if itemSize.width > 2 {
+                itemSize.width -= 2
+            }
             
             let xPos = column * Int(itemSize.width + itemSpacing)
             let yPos = row * Int(itemSize.height + itemSpacing)
             
-        //    print("xPos: \(xPos) | yPos: \(yPos)")
-            
             let index = IndexPath(row: itemIndex, section: 0)
             let attributes = UICollectionViewLayoutAttributes(forCellWith: index)
             attributes.frame = CGRect(x: CGFloat(xPos), y: CGFloat(yPos), width: itemSize.width, height: itemSize.height)
-          //  print("row: \(row)) attributes.frame: \(attributes.frame)")
             layoutAttributes.append(attributes)
             
         }
@@ -118,7 +117,25 @@ class MorphedViewLayout: UICollectionViewFlowLayout {
     
     // -----------------------------------------------------------------------------------------------------
     
+//    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+//
+//        let layoutAttributes = layoutAttributesForElements(in: rect)! as NSArray
+//
+//        func contains(_ rect2: CGRect) -> Bool {
+//            if rect2 == CGRect(x: 0, y: 0, width: 2, height: 50) {
+//                let layoutAttributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+//                layoutAttributes.frame = CGRect(x: 0, y: 0, width: 20, height: 50) // or whatever...
+//                return layoutAttributes
+//            }
+//            else{
+//                return layoutAttributes
+//            }
+//
+//        }
+//    }
+    
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        return super.layoutAttributesForElements(in: rect)
         return layoutAttributes.filter { attributes in
             attributes.frame.intersects(rect)
         }

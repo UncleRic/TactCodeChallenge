@@ -8,10 +8,8 @@
 
 import UIKit
 
-let cellQueueID = "cell"
-
-class TactCell: UICollectionViewCell {
-    var textVield:UITextField?
+class MainCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var label: UILabel!
 }
 
 
@@ -23,15 +21,17 @@ class MainViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var titleLabel: UILabel!
     
+    let cellID = "MainCell"
+    
     var numberOfMemberCellsOfSection = 0
     var maxNumberOfCells:Int?
     var alternatingRowDataSourceArray:[Int]?
     let standardViewLayout:StandardViewLayout!
-    static let cellsPerRow = 5
     
-    var rows:Int {
-        return Int(ceil(CGFloat(numberOfMemberCellsOfSection)/CGFloat(MainViewController.cellsPerRow)))
-    }
+    var isStandard = true
+    
+    static var cellsPerRow = 0
+    static var rows = 0
     
     enum toolbarItem:Int {
         case exit = 0
@@ -57,6 +57,43 @@ class MainViewController: UIViewController {
         )
         super.init(coder: aDecoder)
     }
+  
+    
+    // ===================================================================================================
+    
+    func countRowsAndColumns() {
+        let layouts = standardViewLayout.layoutAttributesForElements(in: collectionView.bounds)!
+        var columns = Set<CGFloat>()
+        var rows = Set<CGFloat>()
+        
+        for layout in layouts {
+            if layout.representedElementCategory != .cell {continue}
+            let x:CGFloat = layout.frame.origin.x
+            columns.insert(x)
+            let y:CGFloat = layout.frame.origin.y
+            rows.insert(y)
+        }
+        
+        MainViewController.cellsPerRow = columns.count
+        MainViewController.rows = rows.count
+    }
+    
+    
+    var selectionMode = false {
+        didSet {
+            collectionView.collectionViewLayout.invalidateLayout()
+            collectionView.layoutIfNeeded()
+        }
+    }
+    
+    // -----------------------------------------------------------------------------------------------------
+    // MARK: - Private functions
+    // 1) Minimum Inter-item Spacing:
+    
+    private func separatorSize(isInSelectionMode: Bool) -> CGSize {
+        // Select Mode: shrink item: make gap wider:
+        return selectionMode ? CGSize(width: 24, height: 24) : CGSize(width: 3, height: 3)
+    }
     
     // *** VIEW DID LOAD ***
     override func viewDidLoad() {
@@ -74,7 +111,7 @@ class MainViewController: UIViewController {
         
         // 1) Create an integer array of items per user entry:
         
-        maxNumberOfCells = rows * MainViewController.cellsPerRow
+        maxNumberOfCells = MainViewController.rows * MainViewController.cellsPerRow
         var origArray = Array(repeating: 0, count: maxNumberOfCells!)
         
         for cellID in 0..<numberOfMemberCellsOfSection {
@@ -88,7 +125,7 @@ class MainViewController: UIViewController {
         var col = columns - 1
         var reverse = false
         
-        for _ in 0..<rows {
+        for _ in 0..<MainViewController.rows {
             var myArray = Array(origArray[k...col])
             if reverse {
                 myArray = myArray.reversed()
@@ -129,6 +166,7 @@ class MainViewController: UIViewController {
         toolBar.items![toolbarItem.standard.rawValue].isEnabled = false
         toolBar.items![toolbarItem.morphed.rawValue].isEnabled = true
         alternatingRowDataSourceArray = nil
+        isStandard = true
         collectionView.reloadData()
     }
     
@@ -177,6 +215,7 @@ extension MainViewController: UITextFieldDelegate {
         
         textField.resignFirstResponder()
         collectionView.reloadData()
+        countRowsAndColumns()
         return true
     }
     
@@ -197,7 +236,8 @@ extension MainViewController: UICollectionViewDataSource {
         return  maxNumberOfCells ?? numberOfMemberCellsOfSection
     }
     
-    // **** Populating the cell ****:
+    // -----------------------------------------------------------------------------------------------------
+    // Populating the cell:
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var dataInt = 0
@@ -206,13 +246,39 @@ extension MainViewController: UICollectionViewDataSource {
         } else {
             dataInt = indexPath.item
         }
-        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: cellQueueID, for: indexPath)
-        if let textField = cell.contentView.viewWithTag(1) as? UITextField {
-            textField.isHidden = (dataInt == 0 && indexPath.row > 0)
-            textField.text = String(dataInt)
-        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! MainCollectionViewCell
+        
+        cell.backgroundColor = UIColor(hue: CGFloat(indexPath.item % 6) * CGFloat(1.0 / 6.0),
+                                       saturation: 0.80, brightness: 0.75, alpha: 1.0)
+        
+        cell.label.isHidden = (dataInt == 0 && indexPath.row > 0)
+        cell.label.text = String(dataInt)
         
         return cell
     }
 }
+
+// ===================================================================================================
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension MainViewController: UICollectionViewDelegateFlowLayout {
+    // Animate Touch: Adjust borders about all cells:
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        UIView.animate(withDuration: 0.25) { self.selectionMode = !self.selectionMode }
+    }
+    
+    // -----------------------------------------------------------------------------------------------------
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        
+        return separatorSize(isInSelectionMode: selectionMode).width
+        
+    }
+}
+
+
+
+
 
