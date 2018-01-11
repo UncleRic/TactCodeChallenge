@@ -26,6 +26,8 @@ class MainViewController: UIViewController {
     static var columns = 0
     static var visibleRows = 0
     
+    var cellWidth:CGFloat = 50.0; var cellHeight:CGFloat = 50.0
+    
     var numberOfMemberCellsOfSection = 0
     var maxNumberOfCells:Int?
     var maxNumberOfRows:Int {
@@ -151,21 +153,24 @@ class MainViewController: UIViewController {
     }
     
     // -----------------------------------------------------------------------------------------------------
-    // MARK: - Action:
+    // MARK: - Gesture Handlers:
     
     @IBAction func tapGestureAction(_ sender: UITapGestureRecognizer) {
-        numberInputField.resignFirstResponder()
+        resetAction()
     }
     
-    @IBAction func panGestureAction(_ sender: UIPanGestureRecognizer) {
+    @IBAction func doubleTapGestureAction(_ sender: UITapGestureRecognizer) {
         guard numberOfMemberCellsOfSection > 0 else {return}
-        print("Pan Gesture")
+        cellWidth += 2; cellHeight += 2
+        collectionView.reloadData()
     }
     
     // -----------------------------------------------------------------------------------------------------
+     // MARK: - Action:
     
     @IBAction func resetAction() {
         collectionView.collectionViewLayout = standardViewLayout
+        cellWidth = 50; cellHeight = 50
         numberOfMemberCellsOfSection = 0
         maxNumberOfCells = nil
         numberInputField.text = ""
@@ -217,6 +222,7 @@ class MainViewController: UIViewController {
 }
 
 // ===================================================================================================
+// MARK: -
 // UITextField Delegate:
 
 extension MainViewController: UITextFieldDelegate {
@@ -248,6 +254,7 @@ extension MainViewController: UITextFieldDelegate {
 }
 
 // ===================================================================================================
+// MARK: -
 // UICollectionViewDataSource:
 
 extension MainViewController: UICollectionViewDataSource {
@@ -312,21 +319,17 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         let widthRatio: CGFloat
         
         switch indexPath.item % 4 {
-        case 0, 3: widthRatio = (2.0 / 3.0)
-        case 1, 2: widthRatio = (1.0 / 3.0)
-        default: widthRatio = 1.0
+            case 0, 3: widthRatio = (2.0 / 3.0)
+            case 1, 2: widthRatio = (1.0 / 3.0)
+            default: widthRatio = 1.0
         }
         
-        var width:CGFloat = 0.0; var height:CGFloat = 0.0
-        
-        if collectionType.rawValue < toolbarItem.morphed.rawValue {
-            width = 50.0; height = 50.0
-        } else {
-            width = (collectionView.bounds.width - separatorSize(isInSelectionMode: selectionMode).width) * widthRatio
-            height = totalRowHeight - separatorSize(isInSelectionMode: selectionMode).height
+        if collectionType.rawValue == toolbarItem.morphed.rawValue {
+            cellWidth = (collectionView.bounds.width - separatorSize(isInSelectionMode: selectionMode).width) * widthRatio
+            cellHeight = totalRowHeight - separatorSize(isInSelectionMode: selectionMode).height
         }
         
-        return CGSize(width: width, height: height)
+        return CGSize(width: cellWidth, height: cellHeight)
     }
 }
 

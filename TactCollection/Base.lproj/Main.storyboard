@@ -89,7 +89,7 @@
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="6Jg-IV-Jb5"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="EfP-iN-BmU"/>
-                                    <outletCollection property="gestureRecognizers" destination="dMt-62-Ole" appends="YES" id="6Ez-K0-qvI"/>
+                                    <outletCollection property="gestureRecognizers" destination="ftH-27-9DM" appends="YES" id="pnx-go-HmW"/>
                                 </connections>
                             </collectionView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ug4-UL-kHK">
@@ -170,11 +170,11 @@
                         <action selector="tapGestureAction:" destination="BYZ-38-t0r" id="X15-pJ-6l3"/>
                     </connections>
                 </tapGestureRecognizer>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="dMt-62-Ole">
+                <tapGestureRecognizer numberOfTouchesRequired="2" id="ftH-27-9DM" userLabel="Double-Tap Gesture Recognizer">
                     <connections>
-                        <action selector="panGestureAction:" destination="BYZ-38-t0r" id="TQb-MY-aqL"/>
+                        <action selector="doubleTapGestureAction:" destination="BYZ-38-t0r" id="dr4-Jp-UaZ"/>
                     </connections>
-                </panGestureRecognizer>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="132.68365817091455"/>
         </scene>
