@@ -20,11 +20,18 @@ class MainViewController: UIViewController {
     @IBOutlet weak var numberInputField: UITextField!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var titleLabel: UILabel!
-    
+
     let cellID = "MainCell"
+    
+    static var columns = 0
+    static var visibleRows = 0
     
     var numberOfMemberCellsOfSection = 0
     var maxNumberOfCells:Int?
+    var maxNumberOfRows:Int {
+        return numberOfMemberCellsOfSection / MainViewController.columns
+    }
+    
     var alternatingRowDataSourceArray:[Int]?
     let standardViewLayout:StandardViewLayout!
     
@@ -36,9 +43,6 @@ class MainViewController: UIViewController {
     }
     
     var isStandard = true
-    
-    static var cellsPerRow = 0
-    static var rows = 0
     
     enum toolbarItem:Int {
         case exit = 0
@@ -57,7 +61,7 @@ class MainViewController: UIViewController {
     // MARK: - Initialization:
     required init?(coder aDecoder: NSCoder) {
         standardViewLayout = StandardViewLayout(
-            cellsPerRow: MainViewController.cellsPerRow,
+            columns: MainViewController.columns,
             minimumInteritemSpacing: 10,
             minimumLineSpacing: 10,
             sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -81,8 +85,8 @@ class MainViewController: UIViewController {
             rows.insert(y)
         }
         
-        MainViewController.cellsPerRow = columns.count
-        MainViewController.rows = rows.count
+        MainViewController.columns = columns.count
+        MainViewController.visibleRows = rows.count
     }
     
     // -----------------------------------------------------------------------------------------------------
@@ -106,15 +110,17 @@ class MainViewController: UIViewController {
     // Prepping Data from user input integer: Alternating rows of L->R & R->L integers.
     //
     func AlternatingRowsArray() {
-        let columns = MainViewController.cellsPerRow
+        let columns = MainViewController.columns
         
         // 1) Create an integer array of items per user entry:
         
-        maxNumberOfCells = MainViewController.rows * MainViewController.cellsPerRow
+        maxNumberOfCells = numberOfMemberCellsOfSection +
+                (MainViewController.columns - (numberOfMemberCellsOfSection % MainViewController.columns))
+        
         var origArray = Array(repeating: 0, count: maxNumberOfCells!)
         
-        for cellID in 0..<numberOfMemberCellsOfSection {
-            origArray[cellID] = cellID
+        for idx in 0..<numberOfMemberCellsOfSection {
+            origArray[idx] = idx
         }
         
         // 2) Break the array in slices per computed row:
@@ -124,7 +130,7 @@ class MainViewController: UIViewController {
         var col = columns - 1
         var reverse = false
         
-        for _ in 0..<MainViewController.rows {
+        for _ in 0..<maxNumberOfRows+1 {
             var myArray = Array(origArray[k...col])
             if reverse {
                 myArray = myArray.reversed()
@@ -166,6 +172,7 @@ class MainViewController: UIViewController {
         toolBar.items![toolbarItem.morphed.rawValue].isEnabled = true
         alternatingRowDataSourceArray = nil
         isStandard = true
+        titleLabel.text = title.standard.rawValue
         collectionView.reloadData()
     }
     
@@ -248,12 +255,17 @@ extension MainViewController: UICollectionViewDataSource {
         } else {
             dataInt = indexPath.item
         }
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! MainCollectionViewCell
         
-        cell.backgroundColor = UIColor(hue: CGFloat(indexPath.item % 6) * CGFloat(1.0 / 6.0),
-                                       saturation: 0.80, brightness: 0.75, alpha: 1.0)
-        
         cell.label.isHidden = (dataInt == 0 && indexPath.row > 0)
+        
+        if cell.label.isHidden {
+            cell.backgroundColor = .clear
+        } else {
+            cell.backgroundColor = UIColor(hue: CGFloat(indexPath.item % 6) * CGFloat(1.0 / 6.0),
+                                           saturation: 0.80, brightness: 0.75, alpha: 1.0)
+        }
         cell.label.text = String(dataInt)
         
         return cell

@@ -12,12 +12,12 @@ import UIKit
 // StandardViewLayout: the default View Layout
 
 class StandardViewLayout: UICollectionViewFlowLayout {
-    let cellsPerRow: Int
+    let columns: Int
     override var itemSize: CGSize {
         get {
             guard let collectionView = collectionView else { return super.itemSize }
-            let marginsAndInsets = sectionInset.left + sectionInset.right + minimumInteritemSpacing * CGFloat(cellsPerRow - 1)
-            let itemWidth = ((collectionView.bounds.size.width - marginsAndInsets) / CGFloat(cellsPerRow)).rounded(.down)
+            let marginsAndInsets = sectionInset.left + sectionInset.right + minimumInteritemSpacing * CGFloat(columns - 1)
+            let itemWidth = ((collectionView.bounds.size.width - marginsAndInsets) / CGFloat(columns)).rounded(.down)
             return CGSize(width: itemWidth, height: itemWidth)
         }
         set {
@@ -25,12 +25,12 @@ class StandardViewLayout: UICollectionViewFlowLayout {
         }
     }
     
-    init(cellsPerRow: Int,
+    init(columns: Int,
          minimumInteritemSpacing: CGFloat = 0,
          minimumLineSpacing: CGFloat = 0,
          sectionInset: UIEdgeInsets = .zero) {
         
-        self.cellsPerRow = cellsPerRow
+        self.columns = columns
         super.init()
         
         self.minimumInteritemSpacing = minimumInteritemSpacing
