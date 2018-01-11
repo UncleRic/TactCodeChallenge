@@ -28,7 +28,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RatIcon-512" translatesAutoresizingMaskIntoConstraints="NO" id="Evu-Xm-JPs" userLabel="Rat-512">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="622"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="669"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Cells:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5S-Cm-4K4">
                                 <rect key="frame" x="41" y="66" width="128" height="21"/>
@@ -146,7 +146,7 @@
                             <constraint firstItem="A5S-Cm-4K4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="46" id="axz-oM-QPz"/>
                             <constraint firstItem="i0F-V7-V34" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-98" id="eyp-2f-eXt"/>
                             <constraint firstItem="ug4-UL-kHK" firstAttribute="top" secondItem="03R-jy-oWO" secondAttribute="bottom" constant="64" id="f6u-e1-Ibq"/>
-                            <constraint firstItem="ug4-UL-kHK" firstAttribute="top" secondItem="Evu-Xm-JPs" secondAttribute="bottom" id="p8G-qO-9O9"/>
+                            <constraint firstItem="ug4-UL-kHK" firstAttribute="top" secondItem="Evu-Xm-JPs" secondAttribute="bottom" constant="-47" id="p8G-qO-9O9"/>
                             <constraint firstItem="Evu-Xm-JPs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="shY-Gq-pP1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Evu-Xm-JPs" secondAttribute="trailing" id="wCN-8g-tq4"/>
                         </constraints>

@@ -20,7 +20,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var numberInputField: UITextField!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var titleLabel: UILabel!
-
+    
     let cellID = "MainCell"
     
     static var columns = 0
@@ -41,22 +41,28 @@ class MainViewController: UIViewController {
             collectionView.layoutIfNeeded()
         }
     }
-    
-    var isStandard = true
-    
+
     enum toolbarItem:Int {
         case exit = 0
         case reset
         case standard
         case altRows
         case morphed
+        func description() -> String {
+            switch self {
+            case .standard:
+                return "Standard"
+            case .altRows:
+                return "Alternating Rows"
+            case .morphed:
+                return "Morphed Cells"
+            default:
+                return ""
+            }
+        }
     }
     
-    enum title:String {
-        case standard = "Standard"
-        case altered = "Alternating Rows"
-        case morphed = "Morphed Cells"
-    }
+    var collectionType:toolbarItem = .standard
     
     // MARK: - Initialization:
     required init?(coder aDecoder: NSCoder) {
@@ -115,7 +121,7 @@ class MainViewController: UIViewController {
         // 1) Create an integer array of items per user entry:
         
         maxNumberOfCells = numberOfMemberCellsOfSection +
-                (MainViewController.columns - (numberOfMemberCellsOfSection % MainViewController.columns))
+            (MainViewController.columns - (numberOfMemberCellsOfSection % MainViewController.columns))
         
         var origArray = Array(repeating: 0, count: maxNumberOfCells!)
         
@@ -157,7 +163,8 @@ class MainViewController: UIViewController {
         maxNumberOfCells = nil
         numberInputField.text = ""
         alternatingRowDataSourceArray = nil
-        titleLabel.text = title.standard.rawValue
+        collectionType = .reset
+        titleLabel.text = toolbarItem.standard.description()
         titleLabel.isHidden = true
         toolBar.items![toolbarItem.standard.rawValue].isEnabled = false
         toolBar.items![toolbarItem.altRows.rawValue].isEnabled = false
@@ -171,8 +178,8 @@ class MainViewController: UIViewController {
         toolBar.items![toolbarItem.standard.rawValue].isEnabled = false
         toolBar.items![toolbarItem.morphed.rawValue].isEnabled = true
         alternatingRowDataSourceArray = nil
-        isStandard = true
-        titleLabel.text = title.standard.rawValue
+        collectionType = .standard
+        titleLabel.text = toolbarItem.standard.description()
         collectionView.reloadData()
     }
     
@@ -183,26 +190,23 @@ class MainViewController: UIViewController {
         toolBar.items![toolbarItem.standard.rawValue].isEnabled = true
         toolBar.items![toolbarItem.morphed.rawValue].isEnabled = true
         AlternatingRowsArray()
-        titleLabel.text = title.altered.rawValue
+        collectionType = .altRows
+        titleLabel.text = toolbarItem.altRows.description()
         collectionView.reloadData()
     }
-    
     
     @IBAction func morphedAction(_ sender: UIBarButtonItem) {
         collectionView.collectionViewLayout = MorphedViewLayout()
         toolBar.items![toolbarItem.standard.rawValue].isEnabled = true
         toolBar.items![toolbarItem.altRows.rawValue].isEnabled = true
         toolBar.items![toolbarItem.morphed.rawValue].isEnabled = false
-        titleLabel.text = title.morphed.rawValue
+        titleLabel.text = toolbarItem.morphed.description()
+        collectionType = .morphed
     }
-    
     
     @IBAction func exitAction(_ sender: UIBarButtonItem) {
         exit(0)
     }
-    
-    
-    
 }
 
 // ===================================================================================================
@@ -218,7 +222,7 @@ extension MainViewController: UITextFieldDelegate {
         toolBar.items![toolbarItem.altRows.rawValue].isEnabled = true
         toolBar.items![toolbarItem.morphed.rawValue].isEnabled = true
         titleLabel.isHidden = false
-        titleLabel.text = title.standard.rawValue
+        titleLabel.text = toolbarItem.standard.description()
         
         numberOfMemberCellsOfSection = numberOfCells
         
@@ -258,7 +262,7 @@ extension MainViewController: UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! MainCollectionViewCell
         
-        cell.label.isHidden = (dataInt == 0 && indexPath.row > 0)
+        cell.label.isHidden = (dataInt == 0 && indexPath.row > 0 || collectionType == .standard && indexPath.item >= numberOfMemberCellsOfSection)
         
         if cell.label.isHidden {
             cell.backgroundColor = .clear
@@ -301,14 +305,14 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         let widthRatio: CGFloat
         
         switch indexPath.item % 4 {
-            case 0, 3: widthRatio = (2.0 / 3.0)
-            case 1, 2: widthRatio = (1.0 / 3.0)
-            default: widthRatio = 1.0
+        case 0, 3: widthRatio = (2.0 / 3.0)
+        case 1, 2: widthRatio = (1.0 / 3.0)
+        default: widthRatio = 1.0
         }
         
         var width:CGFloat = 0.0; var height:CGFloat = 0.0
         
-        if isStandard {
+        if collectionType.rawValue < toolbarItem.morphed.rawValue {
             width = 50.0; height = 50.0
         } else {
             width = (collectionView.bounds.width - separatorSize(isInSelectionMode: selectionMode).width) * widthRatio
