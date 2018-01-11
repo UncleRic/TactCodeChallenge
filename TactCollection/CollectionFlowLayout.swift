@@ -136,9 +136,9 @@ class MorphedViewLayout: UICollectionViewFlowLayout {
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         return super.layoutAttributesForElements(in: rect)
-        return layoutAttributes.filter { attributes in
-            attributes.frame.intersects(rect)
-        }
+//        return layoutAttributes.filter { attributes in
+//            attributes.frame.intersects(rect)
+//        }
     }
     
     // -----------------------------------------------------------------------------------------------------
