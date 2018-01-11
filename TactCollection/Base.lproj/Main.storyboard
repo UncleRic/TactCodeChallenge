@@ -50,6 +50,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="03R-jy-oWO">
                                 <rect key="frame" x="38" y="129" width="299" height="429"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" sectionInsetReference="safeArea" id="D2C-7j-lgk">
                                     <size key="itemSize" width="34" height="34"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -88,6 +89,7 @@
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="6Jg-IV-Jb5"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="EfP-iN-BmU"/>
+                                    <outletCollection property="gestureRecognizers" destination="dMt-62-Ole" appends="YES" id="6Ez-K0-qvI"/>
                                 </connections>
                             </collectionView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ug4-UL-kHK">
@@ -168,6 +170,11 @@
                         <action selector="tapGestureAction:" destination="BYZ-38-t0r" id="X15-pJ-6l3"/>
                     </connections>
                 </tapGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="dMt-62-Ole">
+                    <connections>
+                        <action selector="panGestureAction:" destination="BYZ-38-t0r" id="TQb-MY-aqL"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="132.68365817091455"/>
         </scene>

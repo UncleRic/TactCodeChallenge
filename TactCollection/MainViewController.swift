@@ -157,6 +157,13 @@ class MainViewController: UIViewController {
         numberInputField.resignFirstResponder()
     }
     
+    @IBAction func panGestureAction(_ sender: UIPanGestureRecognizer) {
+        guard numberOfMemberCellsOfSection > 0 else {return}
+        print("Pan Gesture")
+    }
+    
+    // -----------------------------------------------------------------------------------------------------
+    
     @IBAction func resetAction() {
         collectionView.collectionViewLayout = standardViewLayout
         numberOfMemberCellsOfSection = 0
