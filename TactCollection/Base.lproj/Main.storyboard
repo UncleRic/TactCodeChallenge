@@ -27,6 +27,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RatIcon-512" translatesAutoresizingMaskIntoConstraints="NO" id="Evu-Xm-JPs" userLabel="Rat-512">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="622"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Cells:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5S-Cm-4K4">
                                 <rect key="frame" x="41" y="66" width="128" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -36,6 +39,7 @@
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z0x-60-ygB">
                                 <rect key="frame" x="208" y="61" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="0.47207948825503354" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -45,7 +49,7 @@
                             </textField>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="03R-jy-oWO">
                                 <rect key="frame" x="38" y="129" width="299" height="429"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" sectionInsetReference="safeArea" id="D2C-7j-lgk">
                                     <size key="itemSize" width="34" height="34"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -53,7 +57,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="MainCell" reuseIdentifier="MainCell" id="rZt-ym-ZyC" customClass="MainCollectionViewCell" customModule="TestCVLO" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="MainCell" reuseIdentifier="MainCell" id="rZt-ym-ZyC" customClass="MainCollectionViewCell" customModule="TactCollection" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="34" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -127,7 +131,6 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.77363037999999995" green="1" blue="0.94208932970000003" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="03R-jy-oWO" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="1vg-CB-DsI"/>
@@ -137,11 +140,15 @@
                             <constraint firstItem="i0F-V7-V34" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Dky-TJ-noJ"/>
                             <constraint firstItem="03R-jy-oWO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="38" id="ELF-RN-fD3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ug4-UL-kHK" secondAttribute="trailing" constant="-17" id="EVO-fc-M6J"/>
+                            <constraint firstItem="Evu-Xm-JPs" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="RY3-nl-IAr"/>
                             <constraint firstItem="A5S-Cm-4K4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="41" id="SXU-5Y-EDU"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="A5S-Cm-4K4" secondAttribute="trailing" constant="20" symbolic="YES" id="ZwT-oB-dnp"/>
                             <constraint firstItem="A5S-Cm-4K4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="46" id="axz-oM-QPz"/>
                             <constraint firstItem="i0F-V7-V34" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-98" id="eyp-2f-eXt"/>
                             <constraint firstItem="ug4-UL-kHK" firstAttribute="top" secondItem="03R-jy-oWO" secondAttribute="bottom" constant="64" id="f6u-e1-Ibq"/>
+                            <constraint firstItem="ug4-UL-kHK" firstAttribute="top" secondItem="Evu-Xm-JPs" secondAttribute="bottom" id="p8G-qO-9O9"/>
+                            <constraint firstItem="Evu-Xm-JPs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="shY-Gq-pP1"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Evu-Xm-JPs" secondAttribute="trailing" id="wCN-8g-tq4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <connections>
@@ -165,4 +172,7 @@
             <point key="canvasLocation" x="136.80000000000001" y="132.68365817091455"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="RatIcon-512" width="512" height="512"/>
+    </resources>
 </document>
